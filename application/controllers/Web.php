@@ -5,16 +5,30 @@ class Web extends CI_Controller{
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->model('m_data');
     }
     public function index(){
         $data['judul']="Halaman Judul";
+        $this->load->view('v_header',$data);
         $this->load->view('v_index',$data);
+        $this->load->view('v_footer',$data);
     }
-    public function about()
-    {
+    public function about(){
         $data['judul'] = "Halaman About";
-        $this->load->view('partials/head', $data);
+        $this->load->view('v_header', $data);
         $this->load->view('v_about', $data);
-        $this->load->view('partials/footer', $data);
+        $this->load->view('v_footer', $data);
+    }
+    public function bio(){
+        // $data['bio']=$this->m_data->ambil_data()->result();
+        $data=array(
+            'judul'=>"Halaman Data",
+            'bio'=>$this->m_data->ambil_data()->result()
+        );
+        $this->load->view('v_header', $data);
+        $this->load->view('v_data', $data);
+        $this->load->view('v_footer', $data);
+
+        
     }
 }
